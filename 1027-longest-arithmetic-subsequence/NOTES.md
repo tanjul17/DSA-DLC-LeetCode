@@ -1,0 +1,1 @@
+In this  we have applied Tabulation technique which used in DP.
