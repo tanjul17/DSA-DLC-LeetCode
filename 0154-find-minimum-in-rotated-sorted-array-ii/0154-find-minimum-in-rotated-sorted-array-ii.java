@@ -1,12 +1,17 @@
 class Solution {
     public int findMin(int[] nums) {
-        HashSet<Integer>set = new HashSet<>();
-        for(int i=0;i<nums.length;i++){
-            if(!set.contains(nums[i])){
-                set.add(nums[i]);
+        int l = 0, r = nums.length - 1;
+
+        while (l < r) {
+            int m = l + (r - l) / 2;
+            if (nums[m] > nums[r]) {
+                l = m + 1;
+            } else if (nums[m] < nums[r]) {
+                r = m;
+            } else {
+                r--;
             }
         }
-        Arrays.sort(nums);
-        return nums[0];
+        return nums[l];
     }
 }
