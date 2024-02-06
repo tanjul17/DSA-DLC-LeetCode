@@ -16,3 +16,13 @@ class Solution {
         return res;
     }
 }
+//appraoch
+/*
+    make char arr
+    store s to char
+    sort the char arr
+    make sort string key
+    store anagram in map
+    and add values of map
+    return values arrlist
+ */
