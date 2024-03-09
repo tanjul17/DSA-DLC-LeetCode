@@ -1,15 +1,18 @@
 class Solution {
     public int getCommon(int[] nums1, int[] nums2) {
-        HashSet<Integer>set = new HashSet<>();
-        for(int i : nums1){
-            set.add(i);
+        for(int i=0;i<nums1.length;i++){
+            if(nums1[i]==bs(nums1[i],nums2))return nums1[i];
         }
-        int min = Integer.MAX_VALUE;
-        for(int i=0;i<nums2.length;i++){
-            if(set.contains(nums2[i])){
-                min = Math.min(min,nums2[i]);
-            }
+        return -1;
+    }
+    public int bs(int k, int arr[]){
+        int i=0,j=arr.length-1;
+        while(i<=j){
+            int m = (i+j)/2;
+            if(arr[m]==k)return k;
+            else if(arr[m]<k)i = m+1;
+            else  j= m-1;
         }
-        return min==Integer.MAX_VALUE?-1:min;
+        return -1;
     }
 }
