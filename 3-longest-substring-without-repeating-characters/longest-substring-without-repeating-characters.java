@@ -1,5 +1,3 @@
-import java.util.HashMap;
-
 class Solution {
     public int lengthOfLongestSubstring(String s) {
         HashMap<Character, Integer> lastIndex = new HashMap<>();
