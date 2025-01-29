@@ -1,55 +1,32 @@
-public class Solution {
+class Solution {
     public int myAtoi(String s) {
-        int index = 0;
-        int n = s.length();
+        int i = 0, n = s.length();
+        int sign = 1, result = 0;
         
-        // Skip leading whitespace
-        while (index < n && s.charAt(index) == ' ') {
-            index++;
+        // Step 1: Ignore leading whitespace
+        while (i < n && s.charAt(i) == ' ') {
+            i++;
         }
         
-        if (index >= n) {
-            return 0;
+        // Step 2: Check sign
+        if (i < n && (s.charAt(i) == '+' || s.charAt(i) == '-')) {
+            sign = (s.charAt(i) == '-') ? -1 : 1;
+            i++;
         }
         
-        // Determine sign
-        int sign = 1;
-        if (s.charAt(index) == '+' || s.charAt(index) == '-') {
-            sign = s.charAt(index) == '+' ? 1 : -1;
-            index++;
-        }
-        
-        // Skip leading zeros after sign
-        while (index < n && s.charAt(index) == '0') {
-            index++;
-        }
-        
-        long result = 0;
-        boolean hasDigits = false;
-        
-        // Process digits
-        for (; index < n; index++) {
-            char c = s.charAt(index);
-            if (!Character.isDigit(c)) {
-                break;
-            }
-            hasDigits = true;
-            int digit = c - '0';
-            result = result * 10 + digit;
+        // Step 3: Convert number and avoid non-digit characters
+        while (i < n && Character.isDigit(s.charAt(i))) {
+            int digit = s.charAt(i) - '0';
             
-            // Check for overflow
-            if (sign == 1 && result > Integer.MAX_VALUE) {
-                return Integer.MAX_VALUE;
+            // Step 4: Handle overflow and underflow cases
+            if (result > (Integer.MAX_VALUE - digit) / 10) {
+                return (sign == 1) ? Integer.MAX_VALUE : Integer.MIN_VALUE;
             }
-            if (sign == -1 && result > (long) Integer.MAX_VALUE + 1) {
-                return Integer.MIN_VALUE;
-            }
+            
+            result = result * 10 + digit;
+            i++;
         }
         
-        if (!hasDigits) {
-            return 0;
-        }
-        
-        return (int) (sign * result);
+        return result * sign;
     }
 }
